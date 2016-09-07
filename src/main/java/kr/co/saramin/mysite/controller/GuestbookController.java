@@ -1,5 +1,6 @@
 package kr.co.saramin.mysite.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,20 @@ import kr.co.saramin.mysite.vo.GuestbookVo;
 public class GuestbookController {
 	@Autowired
 	private GuestbookService guestbookService;
-	
-	@RequestMapping("/list")
-	public String list(Model model){
+
+	@RequestMapping(value={"","/list"})
+	public String list(Model model) {
 		List<GuestbookVo> list = guestbookService.getList();
 		System.out.println(list);
-		model.addAttribute("list",list);
-		return "/WEB-INF/views/guestbook/list.jsp";
+		model.addAttribute("list", list);
+		return "guestbook/list";
+	}
+	@RequestMapping("/list2")
+	public String list2(Model model) {
+		List<HashMap<String,String>> list = guestbookService.getList2();
+		
+		System.out.println(list);
+		model.addAttribute("list", list);
+		return "guestbook/list";
 	}
 }

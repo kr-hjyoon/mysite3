@@ -20,8 +20,25 @@ public class UserController {
 	
 	@RequestMapping("/joinform")
 	public String joinform(){
-		return "/WEB-INF/views/user/joinform.jsp";	
+		return "user/joinform";	
 	}
+	
+	@RequestMapping("/update")
+	public String update(HttpSession session){
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		if (authUser == null){
+			return "redirect:/index";
+		}
+		UserVo userVo = new UserVo();
+		
+		userVo.setNo(authUser.getNo());
+		userVo.setName("hjyoon-update");
+		userVo.setGender("MALE");
+		userService.update(userVo);
+		return "user/joinform";	
+	}
+	
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	@ResponseBody 
@@ -32,8 +49,8 @@ public class UserController {
 	
 	@RequestMapping("/loginform")
 	public String loginform(){
-		return "/WEB-INF/views/user/loginform.jsp";	}
-	
+		return "user/loginform";	
+	}
 
 	@RequestMapping(value="/login")
 	public String login( HttpSession session, @ModelAttribute UserVo userVo ){
@@ -53,4 +70,11 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/index";
 	}
+	
+/*	@ExceptionHandler(UserDaoException.class)
+	public String handlerUserDaoException( Exception ex ){
+		System.out.println("logging:"+ex);
+		return "error/500";
+	}*/
+	
 }

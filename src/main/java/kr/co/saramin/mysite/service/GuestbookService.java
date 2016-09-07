@@ -1,5 +1,6 @@
 package kr.co.saramin.mysite.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,11 @@ public class GuestbookService {
 
 	public List<GuestbookVo> getList() {
 		return guestbookDao.getList();
+
+	}
+	
+	public List<HashMap<String,String>> getList2() {
+		return guestbookDao.getList2();
 
 	}
 }
